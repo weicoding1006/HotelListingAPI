@@ -1,6 +1,9 @@
- using Scalar.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
-
+var connStr = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 // Add services to the container.
 
 builder.Services.AddControllers();
